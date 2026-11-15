@@ -1,6 +1,6 @@
 # Software FJ - Sistema Integral de Gestión de Clientes, Servicios y Reservas
 
-Curso **Programación (213023)** - UNAD - Fase 4: Componente práctico (Prácticas simuladas).
+Grupo **213023_489** - Curso **Programación (213023)** - UNAD - Fase 4: Componente práctico (Prácticas simuladas).
 Sistema orientado a objetos en **Python 3.12**, sin base de datos: toda la información vive en
 objetos y listas; solo se usa un archivo para los **logs** de eventos y errores.
 
@@ -10,14 +10,14 @@ python main.py
 ```
 Genera `logs/software_fj.log` y simula 19 operaciones (válidas e inválidas).
 
-## Estructura y responsables sugeridos (un módulo por integrante)
+## Estructura y responsables (un módulo por integrante)
 | Módulo | Contenido | Integrante |
 |---|---|---|
-| `excepciones.py`, `logger_config.py` | Excepciones personalizadas y archivo de logs | Integrante 1 |
-| `entidades.py` | `EntidadBase` (abstracta) y `Cliente` (encapsulación y validaciones) | Integrante 2 |
-| `servicios.py` | `Servicio` (abstracta), `ReservaSala`, `AlquilerEquipo`, `AsesoriaEspecializada` | Integrante 3 |
-| `reservas.py` | `Reserva` y `EstadoReserva` (confirmar, cancelar, procesar) | Integrante 4 |
-| `gestor.py`, `main.py`, `README.md` | Gestor con listas internas y simulación | Integrante 5 |
+| `excepciones.py`, `logger_config.py` | Excepciones personalizadas y archivo de logs | Darwin Alexander Charry Bastos |
+| `entidades.py` | `EntidadBase` (abstracta) y `Cliente` (encapsulación y validaciones) | Angy Paola Gonzalez Cordoba |
+| `servicios.py` | `Servicio` (abstracta), `ReservaSala`, `AlquilerEquipo`, `AsesoriaEspecializada` | Isabel Cristina Palacio Ospino |
+| `reservas.py` | `Reserva` y `EstadoReserva` (confirmar, cancelar, procesar) | Nelson Daniel Restrepo Rosero |
+| `gestor.py`, `main.py`, `README.md` | Gestor con listas internas y simulación | Eliana Andrea Briñez Zambrano |
 
 ## Conceptos aplicados
 - **Abstracción:** `EntidadBase` y `Servicio` son clases abstractas (`ABC`).
@@ -29,5 +29,5 @@ Genera `logs/software_fj.log` y simula 19 operaciones (válidas e inválidas).
 - **Logs:** cada evento y error queda en `logs/software_fj.log`.
 
 ## Flujo de trabajo en GitHub
-Cada integrante trabaja en su rama (`git checkout -b feature/nombre-modulo`), hace commits con mensajes claros
-y abre un Pull Request hacia `main`.
+Cada integrante edita su módulo desde su propia cuenta de GitHub y guarda sus cambios
+con un commit y un mensaje claro (por ejemplo: "Mejora en servicios.py - Isabel").
