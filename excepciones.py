@@ -6,7 +6,7 @@ Todas heredan de SoftwareFJError, de modo que el programa pueda capturar
 cualquier error propio del dominio con un solo "except SoftwareFJError".
 """
 
-
+# Excepción base para manejar errores propios del sistema.
 class SoftwareFJError(Exception):
     """Excepción base del sistema. Guarda un mensaje y un código de error."""
 
@@ -21,37 +21,37 @@ class SoftwareFJError(Exception):
         # Formato uniforme: [CODIGO] mensaje
         return f"[{self.codigo}] {self.mensaje}"
 
-
+# Controla errores relacionados con datos incorrectos o clientes duplicados.
 class ClienteInvalidoError(SoftwareFJError):
     """Datos del cliente inválidos o cliente inexistente/duplicado."""
     codigo_defecto = "FJ-100"
 
-
+# Controla errores relacionados con servicios incorrectos o inexistentes.
 class ServicioInvalidoError(SoftwareFJError):
     """Parámetros de un servicio inválidos o servicio inexistente."""
     codigo_defecto = "FJ-200"
 
-
+# Controla errores cuando un servicio no está disponible.
 class ServicioNoDisponibleError(SoftwareFJError):
     """El servicio solicitado no está disponible para reservar."""
     codigo_defecto = "FJ-210"
 
-
+# Controla errores relacionados con reservas incorrectas.
 class ReservaInvalidaError(SoftwareFJError):
     """La reserva no se pudo crear o procesar (suele encadenar otra causa)."""
     codigo_defecto = "FJ-300"
 
-
+# Controla operaciones que no están permitidas en el sistema.
 class OperacionNoPermitidaError(SoftwareFJError):
     """Transición de estado o acción no permitida sobre una reserva."""
     codigo_defecto = "FJ-310"
 
-
+# Controla errores cuando falta un parámetro obligatorio.
 class ParametroFaltanteError(SoftwareFJError):
     """Falta un parámetro obligatorio al ejecutar una operación."""
     codigo_defecto = "FJ-400"
 
-
+# Controla errores cuando un cálculo produce resultados inconsistentes.
 class CalculoInconsistenteError(SoftwareFJError):
     """Un cálculo de costos produjo valores inválidos o inconsistentes."""
     codigo_defecto = "FJ-500"
