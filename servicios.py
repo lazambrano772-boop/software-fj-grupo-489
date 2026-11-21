@@ -1,4 +1,4 @@
-"""
+""
 servicios.py
 Clase abstracta Servicio y tres servicios especializados:
 ReservaSala, AlquilerEquipo y AsesoriaEspecializada.
