@@ -10,13 +10,13 @@ python main.py
 ```
 Genera `logs/software_fj.log` y simula 19 operaciones (válidas e inválidas).
 
-## Estructura y responsables (un módulo por integrante)
+## Estructura y responsables por módulo
 | Módulo | Contenido | Integrante |
 |---|---|---|
 | `excepciones.py`, `logger_config.py` | Excepciones personalizadas y archivo de logs | Darwin Alexander Charry Bastos |
-| `entidades.py` | `EntidadBase` (abstracta) y `Cliente` (encapsulación y validaciones) | Angy Paola Gonzalez Cordoba |
+| `entidades.py` | `EntidadBase` (abstracta) y `Cliente` (encapsulación y validaciones) | Sin responsable asignado (módulo de la base del proyecto) |
 | `servicios.py` | `Servicio` (abstracta), `ReservaSala`, `AlquilerEquipo`, `AsesoriaEspecializada` | Isabel Cristina Palacio Ospino |
-| `reservas.py` | `Reserva` y `EstadoReserva` (confirmar, cancelar, procesar) | Nelson Daniel Restrepo Rosero |
+| `reservas.py` | `Reserva` y `EstadoReserva` (confirmar, cancelar, procesar) | Sin responsable asignado (módulo de la base del proyecto) |
 | `gestor.py`, `main.py`, `README.md` | Gestor con listas internas y simulación | Eliana Andrea Briñez Zambrano |
 
 ## Conceptos aplicados
