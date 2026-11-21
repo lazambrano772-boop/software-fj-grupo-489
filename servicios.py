@@ -21,15 +21,16 @@ def _es_numero(valor):
 class Servicio(EntidadBase, ABC):
     """Clase abstracta de la que heredan todos los servicios de Software FJ."""
 
-    IVA_DEFECTO = 0.19        # Impuesto por defecto (19 %)
-    DESCUENTO_MAXIMO = 0.50   # Descuento máximo permitido (50 %)
-    _secuencia = 0            # Contador para SRV-001, SRV-002...
+    IVA_DEFECTO = 0.19
+    DESCUENTO_MAXIMO = 0.50
+    _secuencia = 0
 
     def __init__(self, nombre, tarifa_hora):
         if not isinstance(nombre, str) or len(nombre.strip()) < 3:
             raise ServicioInvalidoError("El nombre del servicio debe tener al menos 3 caracteres.")
         if not _es_numero(tarifa_hora) or tarifa_hora <= 0:
             raise ServicioInvalidoError(f"Tarifa por hora inválida: '{tarifa_hora}'. Debe ser mayor que 0.")
+
         self._nombre = nombre.strip()
         self._tarifa_hora = float(tarifa_hora)
         self._disponible = True
@@ -96,14 +97,17 @@ class Servicio(EntidadBase, ABC):
             impuesto = self.IVA_DEFECTO
         if descuento is None:
             descuento = 0.0
+
         if not _es_numero(impuesto) or not 0 <= impuesto <= 1:
             raise CalculoInconsistenteError(f"Impuesto inconsistente: {impuesto} (debe estar entre 0 y 1).")
         if not _es_numero(descuento) or not 0 <= descuento <= self.DESCUENTO_MAXIMO:
             raise CalculoInconsistenteError(
                 f"Descuento inconsistente: {descuento} (máximo {self.DESCUENTO_MAXIMO}).")
+
         base = self.calcular_costo(horas, **opciones)
         if base <= 0:
             raise CalculoInconsistenteError(f"El costo base calculado es inválido: {base}.")
+
         return round(base * (1 - descuento) * (1 + impuesto), 2)
 
 
@@ -123,11 +127,17 @@ class ReservaSala(Servicio):
 
     def calcular_costo(self, horas, con_catering=False):
         self.validar_parametros(horas)
+
+        # Validar que la opción de catering sea correcta
+        if not isinstance(con_catering, bool):
+            raise ServicioInvalidoError("La opción de catering debe ser True o False.")
+
         costo = self._tarifa_hora * horas
-        if self.__capacidad > 50:          # Recargo por salas grandes
+        if self.__capacidad > 50:
             costo *= 1.10
         if con_catering:
             costo += self.COSTO_CATERING_HORA * horas
+
         return round(costo, 2)
 
     def describir(self):
@@ -142,6 +152,7 @@ class AlquilerEquipo(Servicio):
             raise ServicioInvalidoError("El tipo de equipo es obligatorio.")
         if not isinstance(cantidad, int) or isinstance(cantidad, bool) or not 1 <= cantidad <= 20:
             raise ServicioInvalidoError(f"Cantidad inválida: '{cantidad}' (permitido 1-20).")
+
         self.__tipo_equipo = tipo_equipo.strip()
         self.__cantidad = cantidad
         super().__init__(nombre, tarifa_hora)
@@ -152,8 +163,14 @@ class AlquilerEquipo(Servicio):
     def calcular_costo(self, horas, cantidad=None):
         self.validar_parametros(horas)
         unidades = self.__cantidad if cantidad is None else cantidad
-        if not isinstance(unidades, int) or unidades < 1:
-            raise CalculoInconsistenteError(f"Cantidad de equipos inconsistente: {unidades}.")
+
+        # Validar la cantidad de equipos solicitada
+        if (not isinstance(unidades, int) or isinstance(unidades, bool)
+                or not 1 <= unidades <= 20):
+            raise CalculoInconsistenteError(
+                f"Cantidad de equipos inconsistente: {unidades} (permitido 1-20)."
+            )
+
         return round(self._tarifa_hora * horas * unidades, 2)
 
     def describir(self):
@@ -171,6 +188,7 @@ class AsesoriaEspecializada(Servicio):
             raise ServicioInvalidoError("La especialidad de la asesoría es obligatoria.")
         if not isinstance(nivel, str) or nivel.lower() not in self.NIVELES:
             raise ServicioInvalidoError(f"Nivel inválido '{nivel}'. Opciones: {', '.join(self.NIVELES)}.")
+
         self.__especialidad = especialidad.strip()
         self.__nivel = nivel.lower()
         super().__init__(nombre, tarifa_hora)
@@ -180,11 +198,20 @@ class AsesoriaEspecializada(Servicio):
 
     def calcular_costo(self, horas, urgente=False):
         self.validar_parametros(horas)
+
+        # Validar que la opción de urgencia sea correcta
+        if not isinstance(urgente, bool):
+            raise ServicioInvalidoError("La opción de urgencia debe ser True o False.")
+
         costo = self._tarifa_hora * horas * self.NIVELES[self.__nivel]
-        if urgente:                        # Recargo del 25 % por urgencia
+        if urgente:
             costo *= 1.25
+
         return round(costo, 2)
 
     def describir(self):
         return (f"Asesoría '{self._nombre}' ({self.__especialidad}, nivel {self.__nivel}) | "
                 f"${self._tarifa_hora:,.0f}/h")
+
+
+    
